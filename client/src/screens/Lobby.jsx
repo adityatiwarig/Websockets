@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSocket } from "../context/SocketProvider";
+import { Mail, KeyRound } from "lucide-react";
 
 const LobbyScreen = () => {
   const [email, setEmail] = useState("");
@@ -33,59 +34,69 @@ const LobbyScreen = () => {
   }, [socket, handleJoinRoom]);
 
   return (
-  <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500 px-4">
-  <div className="backdrop-blur-xl bg-white/20 shadow-2xl rounded-2xl p-10 w-full max-w-md border border-white/30">
-    <h1 className="text-3xl font-extrabold text-center text-white mb-8 tracking-wide drop-shadow-lg">
-      🔑 Join a Room
-    </h1>
-    <form onSubmit={handleSubmitForm} className="space-y-6">
-      <div>
-        <label
-          htmlFor="email"
-          className="block text-sm font-medium text-white mb-2"
-        >
-          Email ID
-        </label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          placeholder="Enter your email"
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-4 py-3 rounded-xl bg-white/30 text-white placeholder-gray-200 border border-white/40 focus:ring-2 focus:ring-pink-400 focus:outline-none transition"
-        />
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-600 via-purple-700 to-pink-600 px-4">
+      <div className="backdrop-blur-2xl bg-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.25)] rounded-3xl p-10 w-full max-w-md border border-white/20 hover:shadow-[0_0_25px_rgba(255,255,255,0.3)] transition">
+        <h1 className="text-4xl font-extrabold text-center text-white mb-6 tracking-wide drop-shadow-xl">
+          🔑 Join a Room
+        </h1>
+        <p className="text-center text-white/80 mb-8 text-sm">
+          Enter your email & room ID to get started
+        </p>
+
+        <form onSubmit={handleSubmitForm} className="space-y-6">
+          {/* Email Input */}
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-white mb-2"
+            >
+              Email ID
+            </label>
+            <div className="flex items-center bg-white/20 rounded-xl px-4 py-3 border border-white/30 focus-within:ring-2 focus-within:ring-pink-400">
+              <Mail className="text-white/70 mr-3" size={20} />
+              <input
+                type="email"
+                id="email"
+                value={email}
+                placeholder="Enter your email"
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full bg-transparent text-white placeholder-gray-200 focus:outline-none"
+              />
+            </div>
+          </div>
+
+          {/* Room Input */}
+          <div>
+            <label
+              htmlFor="room"
+              className="block text-sm font-medium text-white mb-2"
+            >
+              Room Number
+            </label>
+            <div className="flex items-center bg-white/20 rounded-xl px-4 py-3 border border-white/30 focus-within:ring-2 focus-within:ring-pink-400">
+              <KeyRound className="text-white/70 mr-3" size={20} />
+              <input
+                type="text"
+                id="room"
+                value={room}
+                placeholder="Enter room ID"
+                onChange={(e) => setRoom(e.target.value)}
+                className="w-full bg-transparent text-white placeholder-gray-200 focus:outline-none"
+              />
+            </div>
+          </div>
+
+          {/* Button */}
+          <button
+            type="submit"
+            className="w-full py-3 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white font-semibold rounded-xl shadow-lg hover:scale-[1.05] active:scale-95 transform transition duration-300"
+          >
+            🚀 Join Room
+          </button>
+        </form>
       </div>
-
-      <div>
-        <label
-          htmlFor="room"
-          className="block text-sm font-medium text-white mb-2"
-        >
-          Room Number
-        </label>
-        <input
-          type="text"
-          id="room"
-          value={room}
-          placeholder="Enter room ID"
-          onChange={(e) => setRoom(e.target.value)}
-          className="w-full px-4 py-3 rounded-xl bg-white/30 text-white placeholder-gray-200 border border-white/40 focus:ring-2 focus:ring-pink-400 focus:outline-none transition"
-        />
-      </div>
-
-      <button
-        type="submit"
-        className="w-full py-3 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white font-semibold rounded-xl shadow-lg hover:scale-105 transform transition duration-300"
-      >
-        🚀 Join Room
-      </button>
-    </form>
-  </div>
-</div>
-
-);
-
-
+    </div>
+  );
 };
 
 export default LobbyScreen;
